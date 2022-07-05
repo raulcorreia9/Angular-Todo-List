@@ -3,18 +3,18 @@
     <li *ngFor="let item of taskList; let i = index">
       <input type="checkbox" [(ngModel)]="item.checked">
       <input type="text" [(ngModel)]="item.task">
-      <button>
+      <button (click)="deleteItemTaskList(i)">
         <img src="assets/icons/icon-trash.svg" alt="icon trash">
       </button>
     </li>
-    <li>
+    <!-- <li>
       <input type="checkbox">
       <input type="text" class="checked" value="testando checked">
       <button>
         <img src="assets/icons/icon-trash.svg" alt="icon trash">
       </button>
-    </li>
+    </li> -->
   </ul>
 </section>
 <app-todo-input-add-itens></app-todo-input-add-itens>
-<app-todo-button-delete-all *ngIf="taskList.length"></app-todo-button-delete-all>
+<app-todo-button-delete-all *ngIf="taskList.length" (click)="deleteAllTaskList()"></app-todo-button-delete-all>

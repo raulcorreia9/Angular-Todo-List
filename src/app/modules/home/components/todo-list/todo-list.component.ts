@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DoCheck, OnInit } from '@angular/core';
 import { TaskList } from '../../model/task-list';
 
 @Component({
@@ -6,14 +6,15 @@ import { TaskList } from '../../model/task-list';
   templateUrl: './todo-list.component.html',
   styleUrls: ['./todo-list.component.scss']
 })
-export class TodoListComponent implements OnInit {
+export class TodoListComponent implements DoCheck {
 
-  public taskList: Array<TaskList> = [
-  ];
+  //Array vazio caso local storage seja vazio, se não, pega o local storage
+  public taskList: Array<TaskList> = JSON.parse(localStorage.getItem("list") || "[]");
 
   constructor() { }
 
-  ngOnInit(): void {
+  ngDoCheck() {
+    this.setLocalStorage();
   }
 
   public deleteItemTaskList(index: number) {
@@ -40,4 +41,9 @@ export class TodoListComponent implements OnInit {
     }
   }
 
+  public setLocalStorage() {
+    if(this.taskList) {
+      localStorage.setItem("list", JSON.stringify(this.taskList));
+    }
+  }
 }

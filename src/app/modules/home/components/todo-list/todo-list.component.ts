@@ -9,7 +9,6 @@ import { TaskList } from '../../model/task-list';
 export class TodoListComponent implements OnInit {
 
   public taskList: Array<TaskList> = [
-    { task: 'Minha task #1', checked: true }
   ];
 
   constructor() { }
@@ -25,6 +24,19 @@ export class TodoListComponent implements OnInit {
     const confirmDelete = window.confirm('Deseja realmente deletar todos as tasks?');
     if(confirmDelete) {
       this.taskList = [];
+    }
+  }
+
+  public setEmitTaskList(event: string) {
+    this.taskList.push({ task: event, checked: false });
+  }
+
+  public checkEmptyTask(task: string, index: number) {
+    if(!task.length) {
+      const confirm = window.confirm('Task sem conteúdo, deseja deletar?');
+      if(confirm) {
+        this.deleteItemTaskList(index);
+      }
     }
   }
 
